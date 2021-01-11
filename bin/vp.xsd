@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema version="l.0" targetNamespace="http://mil.ru/discreteAccounting" xmlns:tns="http://mil.ru/discreteAccounting" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="ДанныеРаздельногоУчета">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Контракт" type="tns:Контракт" maxOccurs="unbounded"></xs:element>
+      </xs:sequence>
+      <xs:attribute type="tns:ИННОрганизации" name="ИННОрганизации" use="required" />
+      <xs:attribute type="tns:КППОрганизации" name="КППОрганизации" use="required" />
+      <xs:attribute name="НаименованиеОрганизации" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="512" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute type="xs:dateTime" name="ДатаФормирования" use="required" />
+      <xs:attribute name="ГенераторОтчета" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="200" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Контракт">
+    <xs:sequence>
+      <xs:element name="ГруппаФинансированиеКонтракта">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ДенежныеСредстваЗаказчика">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="ЦенаКонтракта" use="required" />
+                    <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ВозвращеноЗаказчику" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ВозвращеноЗаказчикуСобственныеСредства" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ПолученоОтЗаказчика" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="БанковскиеКредиты">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="ПлановыйОбъемКредитования" use="required" />
+                    <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ПогашеноТелаКредита" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ПогашеноТелаКредитаСобственныеСредства" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ПривлеченоКредитов" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ЗадолженностьПоПроцентамКредитов">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ПогашеноПроцентов" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ПогашеноПроцентовСобственныеСредства" use="required" />
+                    <xs:attribute type="tns:Финанс" name="НачисленоПроцентов" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ЗадолженностьПоставщикам">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ОплаченоПоставщикам" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ОплаченоПоставщикамСредстваДругихКонтрактов" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ОплаченоПоставщикамСобственныеСредства" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СуммарнаяЗадолженность" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="tns:Финанс" name="ЦелевойОбъемФинансирования" />
+          <xs:attribute type="tns:Финанс" name="СальдоОпераций" />
+          <xs:attribute type="tns:Процент" name="ПроцентВыполнения" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ГруппаРаспределениеРесурсовКонтракта">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ГруппаДенежныеСредства">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ДенежныеСредстваОтдельныйСчет">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ЗачисленоИсполнениеКонтракта" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ЗачисленоИное" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноИсполнениеКонтракта" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноДругиеКонтракты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноРасходыОрганизации" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="БанковскиеДепозиты">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПеречисленоНаДепозит" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ВозвращеноСДепозита" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="АвансыВыданные">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="АвансыИсполнениеКонтракта" use="required" />
+                          <xs:attribute type="tns:Финанс" name="АвансыСредстваДругихКонтрактов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="АвансыСобственныеСредства" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ЗачтеноАвансов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноЗадолженностиКооперации" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                <xs:attribute type="tns:Финанс" name="ДенежныеАктивы" use="required" />
+                <xs:attribute type="tns:Финанс" name="ДенежныеАктивыСредстваДругихКонтрактов" use="required" />
+                <xs:attribute type="tns:Финанс" name="ДенежныеАктивыСобственныеСредства" use="required" />
+                <xs:attribute type="tns:Финанс" name="ИспользованиеРесурсов" use="required" />
+                <xs:attribute type="tns:Финанс" name="ИспользованиеРесурсовДругиеКонтракты" use="required" />
+                <xs:attribute type="tns:Финанс" name="ИспользованиеРесурсовСобственныеСредства" use="required" />
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ГруппаЗапасы">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="МатериалыНаСкладах">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоМатериалов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоМатериаловСредстваДругихКонтрактов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоМатериаловСобственныеСредства" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИспользованоМатериалов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИспользованоМатериаловНаДругиеКонтракты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИспользованоМатериаловНуждыОрганизации" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="НДСПоПриобретеннымЦенностям">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="Выделено" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ВключеноВСтоимостьЗапасов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПринятоКВычету" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ПолуфабрикатыНаСкладах">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоПолуфабрикатов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоПолуфабрикатовСредстваДругихКонтрактов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоПолуфабрикатовСобственныеСредства" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИспользованоПолуфабрикатов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИспользованоПолуфабрикатовНаДругиеКонтракты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИспользованоПолуфабрикатовНуждыОрганизации" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="МатериалыПереданныеВПереработку">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПереданоСтороннемуИсполнителю" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПринятоИзПереработки" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПринятоИзПереработкиНуждыОрганизации" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="РасходыБудущихПериодов">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="НачисленоРБП" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноРБП" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="СредстваПроизводства">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоСредствПроизводства" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоСредствПроизводстваСредстваДругихКонтрактов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ПоступилоСредствПроизводстваСобственныеСредства" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ВыбылоСредствПроизводства" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ВыбылоСредствПроизводстваНаДругиеКонтракты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ВыбылоСредствПроизводстваНуждыОрганизации" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                <xs:attribute type="tns:Финанс" name="СформированоЗапасов" use="required" />
+                <xs:attribute type="tns:Финанс" name="СформированоЗапасовСредстваДругихКонтрактов" use="required" />
+                <xs:attribute type="tns:Финанс" name="СформированоЗапасовСобственныеСредства" use="required" />
+                <xs:attribute type="tns:Финанс" name="ИспользованоЗапасов" use="required" />
+                <xs:attribute type="tns:Финанс" name="ИспользованоЗапасовНаДругиеКонтракты" use="required" />
+                <xs:attribute type="tns:Финанс" name="ИспользованоЗапасовНуждыОрганизации" use="required" />
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ГруппаПроизводство">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="МатериальныеЗатраты">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                          <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноНаЗатраты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноЗатратДругихКонтрактов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноСобственныхЗатрат" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИсключеноИзЗатрат" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ОтнесеноНаДругиеКонтракты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ОтнесеноНаСобственныеЗатраты" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ЗатратыФОТ">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                          <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ЗарплатаИсполнителей" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ПрочиеПроизводственныеЗатраты">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                          <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноНаЗатраты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноЗатратДругихКонтрактов" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноСобственныхЗатрат" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ИсключеноИзЗатрат" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ОтнесеноНаДругиеКонтракты" use="required" />
+                          <xs:attribute type="tns:Финанс" name="ОтнесеноНаСобственныеЗатраты" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ОбщепроизводственныеЗатраты">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                          <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="РазмерЗатрат" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ОбщехозяйственныеЗатраты">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                          <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="РазмерЗатрат" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ПолуфабрикатыВнутренниеРаботы">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="СписаноНаЗатраты" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ВыпускПолуфабрикатовВнутреннихРабот">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="Выпущено" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="ВыпускПродукции">
+                    <xs:complexType>
+                      <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                          <xs:attribute type="tns:Финанс" name="Выпущено" use="required" />
+                        </xs:extension>
+                      </xs:simpleContent>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                <xs:attribute type="tns:Финанс" name="ПроизводственныеЗатраты" use="required" />
+                <xs:attribute type="tns:Финанс" name="ПроизводственныеЗатратыДругихКонтрактов" use="required" />
+                <xs:attribute type="tns:Финанс" name="ПроизводственныеЗатратыСобственные" use="required" />
+                <xs:attribute type="tns:Финанс" name="Выпуск" use="required" />
+                <xs:attribute type="tns:Финанс" name="ВыпускНаДругиеКонтракты" use="required" />
+                <xs:attribute type="tns:Финанс" name="ВыпускНуждыОрганизации" use="required" />
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ГотоваяПродукция">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="Выпущено" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ИспользованоСДругихКонтрактов" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ИспользованоСобственной" use="required" />
+                    <xs:attribute type="tns:Финанс" name="Отгружено" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ОтгруженоНаДругиеКонтракты" use="required" />
+                    <xs:attribute type="tns:Финанс" name="ОтгруженоНаНуждыОрганизации" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="tns:Финанс" name="СальдоОпераций" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ГруппаОтгрузкаПродукцииВыполнениеРабот">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="СебестоимостьПродаж">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                    <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СебестоимостьКонтракт" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СебестоимостьНеКонтракт" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="АУР">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                    <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="РазмерЗатрат" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="КоммерческиеРасходы">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                    <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="РазмерЗатрат" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ПроцентыПоБанковскимКредитам">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                    <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="РазмерЗатрат" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="НДСПродажи">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СуммаНДС" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Прибыль">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+                    <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+                    <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+          <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+          <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ПеренаправлениеПривлечение">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+              <xs:attribute type="tns:Финанс" name="ПривлеченоСредствДругихКонтрактов" use="required" />
+              <xs:attribute type="tns:Финанс" name="ПривлеченоСобственныхСредств" use="required" />
+              <xs:attribute type="tns:Финанс" name="ИспользованоНаДругиеКонтракты" use="required" />
+              <xs:attribute type="tns:Финанс" name="ИспользованоНаСобственныеНужды" use="required" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="СписаноСредств">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute type="tns:Финанс" name="ЦелевойПоказатель" use="required" />
+              <xs:attribute type="tns:Процент" name="ПроцентВыполнения" use="required" />
+              <xs:attribute type="tns:Финанс" name="СальдоОпераций" use="required" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="tns:ИГК" name="ИГК" use="required" />
+    <xs:attribute type="tns:БанковскийСчет" name="НомерОтдельногоСчета" use="required" />
+    <xs:attribute type="xs:date" name="ДатаСоставленияОтчета" use="required" />
+    <xs:attribute name="НомерКонтракта" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1" />
+          <xs:maxLength value="200" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute type="xs:date" name="ДатаЗаключенияКонтракта" use="required" />
+    <xs:attribute type="xs:date" name="ПлановаяДатаИсполнения" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="ИННОрганизации">
+    <xs:annotation>
+      <xs:documentation>ИHH организации</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(([0-9][1-9]|[1-9][0-9])[0-9]{8})" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ИГК">
+    <xs:annotation>
+      <xs:documentation>ИГК</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{25}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="БанковскийСчет">
+    <xs:annotation>
+      <xs:documentation>Банковский Счет</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{20}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="КППОрганизации">
+    <xs:annotation>
+      <xs:documentation>КПП организации</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(([0-9][1-9]|[1-9][0-9])[0-9]{2}([0-9][1-9]|[1-9][0-9]|[A-Z][2])[0-9]{3})" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Процент">
+    <xs:restriction base="xs:decimal">
+      <xs:pattern value="[-]?\d{1,4}\.\d{2}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Финанс">
+    <xs:restriction base="xs:decimal">
+      <xs:pattern value="[-]?\d{1,15}\.\d{2}" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
